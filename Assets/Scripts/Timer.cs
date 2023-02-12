@@ -21,6 +21,10 @@ namespace OwenGibson
                 timeRemaining -= Time.deltaTime;
                 timerText.text = timeRemaining.ToString("00.00");
             }
+            else
+            {
+                EventManager.GameOver?.Invoke();
+            }
         }
 
         private void AddTime(float time)

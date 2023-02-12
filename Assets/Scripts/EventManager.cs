@@ -13,5 +13,6 @@ namespace OwenGibson
         public delegate void VoidDelegate();
         public static VoidDelegate OnGoodPelletDestroy;
         public static VoidDelegate OnBadPelletDestroy;
+        public static VoidDelegate GameOver;
     }
 }

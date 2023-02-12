@@ -11,6 +11,7 @@ namespace OwenGibson
         public static TimerDelegate BadPelletEaten;
 
         public delegate void VoidDelegate();
-        public static VoidDelegate OnPelletDestroy;
+        public static VoidDelegate OnGoodPelletDestroy;
+        public static VoidDelegate OnBadPelletDestroy;
     }
 }

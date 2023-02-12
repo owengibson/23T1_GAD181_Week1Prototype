@@ -13,6 +13,7 @@ namespace OwenGibson
             if (other.CompareTag("Player"))
             {
                 EventManager.BadPelletEaten?.Invoke(1);
+                EventManager.OnBadPelletDestroy?.Invoke();
                 Destroy(gameObject);
             }
         }
@@ -23,7 +24,11 @@ namespace OwenGibson
             {
                 lifespan -= Time.deltaTime;
             }
-            else Destroy(gameObject);
+            else
+            {
+                Destroy(gameObject);
+                EventManager.OnBadPelletDestroy?.Invoke();
+            }
         }
     }
 }

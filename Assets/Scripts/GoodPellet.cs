@@ -17,15 +17,9 @@ namespace OwenGibson
             if (other.CompareTag("Player"))
             {
                 EventManager.GoodPelletEaten?.Invoke(1);
-                EventManager.OnPelletDestroy?.Invoke();
+                EventManager.OnGoodPelletDestroy?.Invoke();
                 Destroy(gameObject);
             }
-            if(!other.CompareTag("Pellet Spawn Area"))
-            {
-                EventManager.OnPelletDestroy?.Invoke();
-                Destroy(gameObject);
-            }
-            else meshRenderer.enabled = true;
         }
     }
 }

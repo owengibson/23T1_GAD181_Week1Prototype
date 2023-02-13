@@ -5972,7 +5972,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xInput: 0
   zInput: 0
-  movementSpeed: 30
+  movementSpeed: 45
   rb: {fileID: 2026839964}
 --- !u!54 &2026839964
 Rigidbody:

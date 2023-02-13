@@ -13,7 +13,7 @@ namespace OwenGibson
 
         [SerializeField] private Rigidbody rb;
 
-        private void Update()
+        private void FixedUpdate()
         {
             xInput = Input.GetAxis("Horizontal");
             zInput = Input.GetAxis("Vertical");

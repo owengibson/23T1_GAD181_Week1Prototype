@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-namespace OwenGibson
+namespace Chowen
 {
     public class Timer : MonoBehaviour
     {

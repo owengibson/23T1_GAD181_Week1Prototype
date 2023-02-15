@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OwenGibson
+namespace Chowen
 {
     public class PelletManager : MonoBehaviour
     {

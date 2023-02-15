@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace OwenGibson
+namespace Chowen
 {
     public class TitleScreen : MonoBehaviour
     {

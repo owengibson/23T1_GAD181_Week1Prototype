@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1428434902343468854}
   - component: {fileID: 293653547097507964}
   - component: {fileID: 293653547097507963}
+  - component: {fileID: 7006929918186189326}
   m_Layer: 0
   m_Name: Bad Pellet
   m_TagString: Untagged
@@ -111,3 +112,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb60401b43de4d3438cbea0775b49674, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7006929918186189326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 635620566201296611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b8e9751f8e29ec4e83bfbb5ba52f0c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotSpeed: 40
+  bounceSpeed: 2

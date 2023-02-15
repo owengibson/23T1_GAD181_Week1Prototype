@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace OwenGibson
+namespace Chowen
 {
     public class GameManager : MonoBehaviour
     {

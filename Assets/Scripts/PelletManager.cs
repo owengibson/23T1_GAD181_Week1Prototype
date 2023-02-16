@@ -11,6 +11,11 @@ namespace Chowen
 
         private float deathPelletSpawnTimer = 0f;
 
+        private Vector3 goodSpawnPos = new Vector3(10f, 10f, 10f);
+        private Vector3 badSpawnPos = new Vector3(10f, 10f, 10f);
+        private Vector3 deathSpawnPos = new Vector3(10f, 10f, 10f);
+
+
         [Header("Object References")]
         [SerializeField] private Transform player;
         [SerializeField] private GameObject goodPelletPrefab;
@@ -25,15 +30,15 @@ namespace Chowen
             if (activeGoodPellets == 0)
             {
                 // Good pellet spawning
-                Vector3 spawnPos = SpawnPosCalculator();
+                goodSpawnPos = SpawnPosCalculator();
                 
-                Instantiate(goodPelletPrefab, spawnPos, Quaternion.Euler(new Vector3(0, Random.Range(0f, 360f), 0)));
+                Instantiate(goodPelletPrefab, goodSpawnPos, Quaternion.Euler(new Vector3(0, Random.Range(0f, 360f), 0)));
                 activeGoodPellets += 1;
 
                 // Bad pellet spawning
                 if (Random.Range(1,5) == 4 && activeBadPellets == 0)
                 {
-                    Vector3 badSpawnPos = SpawnPosCalculator();
+                    badSpawnPos = SpawnPosCalculator();
                     Instantiate(badPelletPrefab, badSpawnPos, Quaternion.Euler(0, Random.Range(0f, 360f), 0));
                     activeBadPellets += 1;
                 }
@@ -42,7 +47,7 @@ namespace Chowen
             if (deathPelletSpawnTimer >= 5f)
             {
                 deathPelletSpawnTimer = 0;
-                Vector3 deathSpawnPos = SpawnPosCalculator();
+                deathSpawnPos = SpawnPosCalculator();
                 Instantiate(deathPelletPrefab, deathSpawnPos, Quaternion.Euler(new Vector3(0, Random.Range(0f, 360f), 0)));
             }
         }
@@ -51,12 +56,14 @@ namespace Chowen
         {
             float xSpawn;
             float zSpawn;
+            Vector3 spawnPos;
             bool illegal = false;
             int spawnCounter = 0;
             do
             {
                 xSpawn = Random.Range(-5.8f, 5.8f);
                 zSpawn = Random.Range(-5.8f, 5.8f);
+                spawnPos = new Vector3(xSpawn, 0.5f, zSpawn);
 
                 spawnCounter++;
 
@@ -68,11 +75,15 @@ namespace Chowen
                 {
                     illegal = true;
                 }
+                else if (Vector3.Distance(spawnPos, goodSpawnPos) < 1f || Vector3.Distance(spawnPos, badSpawnPos) < 1f || Vector3.Distance(spawnPos, deathSpawnPos) < 1f)
+                {
+                    illegal = true;
+                }
                 else illegal = false;
 
             } while (illegal);
             Debug.Log(spawnCounter + " " + xSpawn + ", " + zSpawn);
-            return new Vector3(xSpawn, 0.5f, zSpawn);
+            return spawnPos;
         }
 
         private void ResetActiveGoodPellets()

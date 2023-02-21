@@ -998,6 +998,7 @@ MonoBehaviour:
   player: {fileID: 2026839962}
   audioManager: {fileID: 823184944}
   spawnDistanceFromPlayer: 2.5
+  spawnDistanceFromPellets: 2
 --- !u!4 &466171112
 Transform:
   m_ObjectHideFlags: 0

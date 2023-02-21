@@ -42,11 +42,11 @@ namespace Chowen
                 audioManager.Play("SpawnGem");
 
                 // Bad pellet spawning
-                if (Random.Range(1,5) == 4 && activeBadPellets == 0)
+                if (Random.Range(1,5) == 4 && activeBadPellets != 1)
                 {
                     badSpawnPos = SpawnPosCalculator();
                     Instantiate(badPelletPrefab, badSpawnPos, Quaternion.Euler(0, Random.Range(0f, 360f), 0));
-                    activeBadPellets += 1;
+                    activeBadPellets = 1;
 
                     audioManager.Play("SpawnGem");
                 }

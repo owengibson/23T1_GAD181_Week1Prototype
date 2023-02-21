@@ -11,6 +11,11 @@ namespace Chowen
         [SerializeField] private GameObject endScreen;
         [SerializeField] private TextMeshProUGUI endTimeText;
 
+        private void Start()
+        {
+            isGameActive = true;
+        }
+
         private void Update()
         {
             if (isGameActive)

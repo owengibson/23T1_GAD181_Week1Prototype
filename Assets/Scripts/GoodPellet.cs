@@ -6,12 +6,6 @@ namespace Chowen
 {
     public class GoodPellet : MonoBehaviour
     {
-        private MeshRenderer meshRenderer;
-
-        private void Awake()
-        {
-            meshRenderer = GetComponent<MeshRenderer>();
-        }
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))

@@ -12,6 +12,7 @@ namespace Chowen
         {
             if (other.CompareTag("Player"))
             {
+                EventManager.OnPelletEaten?.Invoke("-1 second");
                 EventManager.BadPelletEaten?.Invoke(1);
                 EventManager.OnBadPelletDestroy?.Invoke();
                 Destroy(gameObject);

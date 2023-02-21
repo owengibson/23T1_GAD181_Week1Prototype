@@ -1,3 +1,4 @@
+using chowen;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,12 +36,16 @@ namespace Chowen
                 Instantiate(goodPelletPrefab, goodSpawnPos, Quaternion.Euler(new Vector3(0, Random.Range(0f, 360f), 0)));
                 activeGoodPellets += 1;
 
+                FindObjectOfType<AudioManager>().Play("SpawnGem");
+
                 // Bad pellet spawning
                 if (Random.Range(1,5) == 4 && activeBadPellets == 0)
                 {
                     badSpawnPos = SpawnPosCalculator();
                     Instantiate(badPelletPrefab, badSpawnPos, Quaternion.Euler(0, Random.Range(0f, 360f), 0));
                     activeBadPellets += 1;
+
+                    FindObjectOfType<AudioManager>().Play("SpawnGem");
                 }
             }
             deathPelletSpawnTimer += Time.deltaTime;
@@ -49,6 +54,8 @@ namespace Chowen
                 deathPelletSpawnTimer = 0;
                 deathSpawnPos = SpawnPosCalculator();
                 Instantiate(deathPelletPrefab, deathSpawnPos, Quaternion.Euler(new Vector3(0, Random.Range(0f, 360f), 0)));
+
+                FindObjectOfType<AudioManager>().Play("SpawnGem");
             }
         }
 

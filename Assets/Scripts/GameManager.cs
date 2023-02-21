@@ -7,7 +7,7 @@ namespace Chowen
     public class GameManager : MonoBehaviour
     {
         private float timeCounter = 0f;
-        private bool isGameActive = true;
+        public static bool isGameActive = true;
         [SerializeField] private GameObject endScreen;
         [SerializeField] private TextMeshProUGUI endTimeText;
 

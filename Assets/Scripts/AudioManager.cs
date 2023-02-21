@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-namespace chowen
+namespace Chowen
 {
     public class AudioManager : MonoBehaviour
     {

@@ -1,4 +1,3 @@
-using chowen;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,13 +17,17 @@ namespace Chowen
 
 
         [Header("Object References")]
-        [SerializeField] private Transform player;
         [SerializeField] private GameObject goodPelletPrefab;
         [SerializeField] private GameObject badPelletPrefab;
         [SerializeReference] private GameObject deathPelletPrefab;
 
+        [Space(15f)]
+        [SerializeField] private Transform player;
+        [SerializeField] private AudioManager audioManager;
+
         [Header("Variables")]
         [SerializeField] float spawnDistanceFromPlayer = 2.5f;
+        [SerializeField] float spawnDistanceFromPellets = 2f;
 
         private void Update()
         {
@@ -36,7 +39,7 @@ namespace Chowen
                 Instantiate(goodPelletPrefab, goodSpawnPos, Quaternion.Euler(new Vector3(0, Random.Range(0f, 360f), 0)));
                 activeGoodPellets += 1;
 
-                FindObjectOfType<AudioManager>().Play("SpawnGem");
+                audioManager.Play("SpawnGem");
 
                 // Bad pellet spawning
                 if (Random.Range(1,5) == 4 && activeBadPellets == 0)
@@ -45,17 +48,18 @@ namespace Chowen
                     Instantiate(badPelletPrefab, badSpawnPos, Quaternion.Euler(0, Random.Range(0f, 360f), 0));
                     activeBadPellets += 1;
 
-                    FindObjectOfType<AudioManager>().Play("SpawnGem");
+                    audioManager.Play("SpawnGem");
                 }
             }
+            // Death pellet spawning
             deathPelletSpawnTimer += Time.deltaTime;
-            if (deathPelletSpawnTimer >= 5f)
+            if (deathPelletSpawnTimer >= 5f && GameManager.isGameActive)
             {
                 deathPelletSpawnTimer = 0;
                 deathSpawnPos = SpawnPosCalculator();
                 Instantiate(deathPelletPrefab, deathSpawnPos, Quaternion.Euler(new Vector3(0, Random.Range(0f, 360f), 0)));
 
-                FindObjectOfType<AudioManager>().Play("SpawnGem");
+                audioManager.Play("SpawnGem");
             }
         }
 
@@ -82,7 +86,7 @@ namespace Chowen
                 {
                     illegal = true;
                 }
-                else if (Vector3.Distance(spawnPos, goodSpawnPos) < 1f || Vector3.Distance(spawnPos, badSpawnPos) < 1f || Vector3.Distance(spawnPos, deathSpawnPos) < 1f)
+                else if (Vector3.Distance(spawnPos, goodSpawnPos) < spawnDistanceFromPellets || Vector3.Distance(spawnPos, badSpawnPos) < spawnDistanceFromPellets || Vector3.Distance(spawnPos, deathSpawnPos) < spawnDistanceFromPellets)
                 {
                     illegal = true;
                 }

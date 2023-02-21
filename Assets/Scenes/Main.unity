@@ -989,13 +989,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e273bab1fe580164388b283d4e371909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 2026839962}
   goodPelletPrefab: {fileID: 6000642017585264602, guid: 0f1d1068db4a15846853a393c525577f,
     type: 3}
   badPelletPrefab: {fileID: 635620566201296611, guid: cbec43a49d0bc494b9c96bbd1b67a347,
     type: 3}
   deathPelletPrefab: {fileID: 6000642017585264602, guid: 01b45cc316831d543aadc54a3e6c2f83,
     type: 3}
+  player: {fileID: 2026839962}
+  audioManager: {fileID: 823184944}
   spawnDistanceFromPlayer: 2.5
 --- !u!4 &466171112
 Transform:

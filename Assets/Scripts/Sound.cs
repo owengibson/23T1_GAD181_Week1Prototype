@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-namespace chowen
+namespace Chowen
 {
     [System.Serializable]
     public class Sound

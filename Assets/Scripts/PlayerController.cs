@@ -13,12 +13,19 @@ namespace Chowen
 
         [SerializeField] private Rigidbody rb;
 
+        [SerializeField] private float velocityMultiplier;
+
         private void FixedUpdate()
         {
             xInput = Input.GetAxis("Horizontal");
             zInput = Input.GetAxis("Vertical");
 
             rb.AddForce(new Vector3(xInput, 0, zInput) * movementSpeed);
+        }
+
+        private void OnDrawGizmos()
+        {
+            Debug.DrawLine(transform.position, transform.position + rb.velocity * velocityMultiplier);
         }
     }
 }

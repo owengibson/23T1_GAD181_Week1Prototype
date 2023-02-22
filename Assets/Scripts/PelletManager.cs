@@ -6,20 +6,20 @@ namespace Chowen
 {
     public class PelletManager : MonoBehaviour
     {
-        private float activeGoodPellets = 0f;
-        private float activeBadPellets = 0f;
+        private bool isHeartActive = false;
+        private bool isPoisonActive = false;
 
-        private float deathPelletSpawnTimer = 0f;
+        private float skullSpawnTimer = 0f;
 
         private Vector3 goodSpawnPos = new Vector3(10f, 10f, 10f);
         private Vector3 badSpawnPos = new Vector3(10f, 10f, 10f);
-        private Vector3 deathSpawnPos = new Vector3(10f, 10f, 10f);
+        private Vector3 skullSpawnPos = new Vector3(10f, 10f, 10f);
 
 
         [Header("Object References")]
-        [SerializeField] private GameObject goodPelletPrefab;
-        [SerializeField] private GameObject badPelletPrefab;
-        [SerializeReference] private GameObject deathPelletPrefab;
+        [SerializeField] private GameObject heartPrefab;
+        [SerializeField] private GameObject poisonPrefab;
+        [SerializeReference] private GameObject skullPrefab;
 
         [Space(15f)]
         [SerializeField] private Transform player;
@@ -31,33 +31,33 @@ namespace Chowen
 
         private void Update()
         {
-            if (activeGoodPellets == 0)
+            if (!isHeartActive)
             {
                 // Good pellet spawning
                 goodSpawnPos = SpawnPosCalculator();
                 
-                Instantiate(goodPelletPrefab, goodSpawnPos, Quaternion.Euler(new Vector3(0, Random.Range(0f, 360f), 0)));
-                activeGoodPellets += 1;
+                Instantiate(heartPrefab, goodSpawnPos, Quaternion.Euler(new Vector3(0, Random.Range(0f, 360f), 0)));
+                isHeartActive = true;
 
                 audioManager.Play("SpawnGem");
 
                 // Bad pellet spawning
-                if (Random.Range(1,5) == 4 && activeBadPellets != 1)
+                if (Random.Range(1,5) == 4 && !isPoisonActive)
                 {
                     badSpawnPos = SpawnPosCalculator();
-                    Instantiate(badPelletPrefab, badSpawnPos, Quaternion.Euler(0, Random.Range(0f, 360f), 0));
-                    activeBadPellets = 1;
+                    Instantiate(poisonPrefab, badSpawnPos, Quaternion.Euler(0, Random.Range(0f, 360f), 0));
+                    isPoisonActive = true;
 
                     audioManager.Play("SpawnGem");
                 }
             }
             // Death pellet spawning
-            deathPelletSpawnTimer += Time.deltaTime;
-            if (deathPelletSpawnTimer >= 5f && GameManager.isGameActive)
+            skullSpawnTimer += Time.deltaTime;
+            if (skullSpawnTimer >= 5f && GameManager.isGameActive)
             {
-                deathPelletSpawnTimer = 0;
-                deathSpawnPos = SpawnPosCalculator();
-                Instantiate(deathPelletPrefab, deathSpawnPos, Quaternion.Euler(new Vector3(0, Random.Range(0f, 360f), 0)));
+                skullSpawnTimer = 0;
+                skullSpawnPos = SpawnPosCalculator();
+                Instantiate(skullPrefab, skullSpawnPos, Quaternion.Euler(new Vector3(0, Random.Range(0f, 360f), 0)));
 
                 audioManager.Play("SpawnGem");
             }
@@ -78,15 +78,15 @@ namespace Chowen
 
                 spawnCounter++;
 
-                if (Mathf.Abs(xSpawn) + Mathf.Abs(zSpawn) > 5.8f)
+                if (Mathf.Abs(xSpawn) + Mathf.Abs(zSpawn) > 5.8f) // Must be inside spawn platform
                 {
                     illegal = true;
                 }
-                else if (Vector2.Distance(new Vector2(xSpawn, zSpawn), new Vector2(player.position.x, player.position.z)) < spawnDistanceFromPlayer)
+                else if (Vector2.Distance(new Vector2(xSpawn, zSpawn), new Vector2(player.position.x, player.position.z)) < spawnDistanceFromPlayer) // Must be far enough away from player
                 {
                     illegal = true;
                 }
-                else if (Vector3.Distance(spawnPos, goodSpawnPos) < spawnDistanceFromPellets || Vector3.Distance(spawnPos, badSpawnPos) < spawnDistanceFromPellets || Vector3.Distance(spawnPos, deathSpawnPos) < spawnDistanceFromPellets)
+                else if (Vector3.Distance(spawnPos, goodSpawnPos) < spawnDistanceFromPellets || Vector3.Distance(spawnPos, badSpawnPos) < spawnDistanceFromPellets || Vector3.Distance(spawnPos, skullSpawnPos) < spawnDistanceFromPellets) // Must be far enough away from other pellets
                 {
                     illegal = true;
                 }
@@ -99,12 +99,12 @@ namespace Chowen
 
         private void ResetActiveGoodPellets()
         {
-            activeGoodPellets = 0;
+            isHeartActive = false;
         }
 
         private void ResetActiveBadPellets()
         {
-            activeBadPellets = 0;
+            isPoisonActive = false;
         }
 
         private void OnEnable()

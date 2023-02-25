@@ -42,7 +42,8 @@ namespace Chowen
                 audioManager.Play("SpawnGem");
 
                 // Bad pellet spawning
-                if (Random.Range(1,5) == 4 && !isPoisonActive)
+
+                if (Random.Range(1, 5) == 4 && !isPoisonActive)
                 {
                     badSpawnPos = SpawnPosCalculator();
                     Instantiate(poisonPrefab, badSpawnPos, Quaternion.Euler(0, Random.Range(0f, 360f), 0));
@@ -50,6 +51,7 @@ namespace Chowen
 
                     audioManager.Play("SpawnGem");
                 }
+
             }
             // Death pellet spawning
             skullSpawnTimer += Time.deltaTime;
@@ -109,13 +111,13 @@ namespace Chowen
 
         private void OnEnable()
         {
-            EventManager.OnGoodPelletDestroy += ResetActiveGoodPellets;
-            EventManager.OnBadPelletDestroy += ResetActiveBadPellets;
+            EventManager.OnHeartDestroy += ResetActiveGoodPellets;
+            EventManager.OnPoisonDestroy += ResetActiveBadPellets;
         }
         private void OnDisable()
         {
-            EventManager.OnGoodPelletDestroy -= ResetActiveGoodPellets;
-            EventManager.OnBadPelletDestroy -= ResetActiveBadPellets;
+            EventManager.OnHeartDestroy -= ResetActiveGoodPellets;
+            EventManager.OnPoisonDestroy -= ResetActiveBadPellets;
         }
     }
 }

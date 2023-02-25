@@ -4,15 +4,15 @@ using UnityEngine;
 
 namespace Chowen
 {
-    public class GoodPellet : MonoBehaviour
+    public class Heart : MonoBehaviour
     {
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
                 EventManager.OnPelletEaten?.Invoke("+1 second");
-                EventManager.GoodPelletEaten?.Invoke(1);
-                EventManager.OnGoodPelletDestroy?.Invoke();
+                EventManager.HeartEaten?.Invoke(1);
+                EventManager.OnHeartDestroy?.Invoke();
                 Destroy(gameObject);
             }
         }

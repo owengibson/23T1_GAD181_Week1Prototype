@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Chowen
 {
-    public class BadPellet : MonoBehaviour
+    public class Poison : MonoBehaviour
     {
         private float lifespan = 3.5f;
 
@@ -14,7 +14,7 @@ namespace Chowen
             {
                 EventManager.OnPelletEaten?.Invoke("-1 second");
                 EventManager.BadPelletEaten?.Invoke(1);
-                EventManager.OnBadPelletDestroy?.Invoke();
+                EventManager.OnPoisonDestroy?.Invoke();
                 Destroy(gameObject);
             }
         }
@@ -28,7 +28,7 @@ namespace Chowen
             else
             {
                 Destroy(gameObject);
-                EventManager.OnBadPelletDestroy?.Invoke();
+                EventManager.OnPoisonDestroy?.Invoke();
             }
         }
     }

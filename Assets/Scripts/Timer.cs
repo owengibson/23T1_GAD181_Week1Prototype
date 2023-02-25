@@ -67,12 +67,12 @@ namespace Chowen
 
         private void OnEnable()
         {
-            EventManager.GoodPelletEaten += AddTime;
+            EventManager.HeartEaten += AddTime;
             EventManager.BadPelletEaten += SubtractTime;
         }
         private void OnDisable()
         {
-            EventManager.GoodPelletEaten -= AddTime;
+            EventManager.HeartEaten -= AddTime;
             EventManager.BadPelletEaten -= SubtractTime;
         }
     }

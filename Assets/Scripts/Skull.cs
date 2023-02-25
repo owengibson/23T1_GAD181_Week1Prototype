@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Chowen
 {
-    public class DeathPellet : MonoBehaviour
+    public class Skull : MonoBehaviour
     {
         private float lifespan = 2.5f;
 
@@ -25,7 +25,6 @@ namespace Chowen
             else
             {
                 Destroy(gameObject);
-                EventManager.OnBadPelletDestroy?.Invoke();
             }
         }
     }

@@ -960,6 +960,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endScreen: {fileID: 1967568001}
   endTimeText: {fileID: 227037879}
+  audioManager: {fileID: 823184944}
 --- !u!1 &466171110
 GameObject:
   m_ObjectHideFlags: 0
@@ -1492,6 +1493,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeRemaining: 10
+  audioManager: {fileID: 823184944}
 --- !u!1 &698375942
 GameObject:
   m_ObjectHideFlags: 0
@@ -1729,6 +1731,36 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 3297d296366f2654784e9a3ca8413a63, type: 3}
     volume: 0.3
     pitch: 0.8
+    source: {fileID: 0}
+  - name: 3
+    clip: {fileID: 8300000, guid: 7554e6d3c4f98b64ba05d6f78d368088, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: 2
+    clip: {fileID: 8300000, guid: 9e386afe20eb1334fb6f7a9e8d5d2abb, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: 1
+    clip: {fileID: 8300000, guid: aec5da4c690a14e4fbbe34b52a439194, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: 0
+    clip: {fileID: 8300000, guid: 422aba8e0afd0344691b5f28ecb63f6d, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: EndSound
+    clip: {fileID: 8300000, guid: 6726f255b9e51ba4483d2233da9264b8, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: WallCollision
+    clip: {fileID: 8300000, guid: bcec70f3ebf9dd5479ade005b831ae40, type: 3}
+    volume: 0.124
+    pitch: 0.47
     source: {fileID: 0}
 --- !u!4 &823184945
 Transform:
@@ -2153,7 +2185,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-36706
+  m_Name: pb_Mesh27504
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5799,7 +5831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6fe4b76e856d2746a30f9d9cfa55ff7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioManager: {fileID: 0}
+  audioManager: {fileID: 823184944}
 --- !u!64 &1372435388
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6183,7 +6215,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh36720
+  m_Name: pb_Mesh27554
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

@@ -10,6 +10,7 @@ namespace Chowen
         private void OnCollisionEnter(Collision collision)
         {
             Debug.Log(collision.gameObject);
+            audioManager.Play("WallCollision");
         }
     }
 }

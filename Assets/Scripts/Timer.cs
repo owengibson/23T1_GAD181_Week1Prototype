@@ -24,7 +24,7 @@ namespace Chowen
             }
             else
             {
-                EventManager.GameOver?.Invoke();
+                //EventManager.GameOver?.Invoke();
             }
 
             if (GameManager.isGameActive == true)

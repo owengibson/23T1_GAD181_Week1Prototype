@@ -23,11 +23,14 @@ namespace Chowen
 
         [Space(15f)]
         [SerializeField] private Transform player;
+        [SerializeField] private Rigidbody playerRB;
         [SerializeField] private AudioManager audioManager;
 
         [Header("Variables")]
         [SerializeField] float spawnDistanceFromPlayer = 2.5f;
         [SerializeField] float spawnDistanceFromPellets = 2f;
+        [SerializeField] float velocityMultiplier = 0.25f;
+        [SerializeField] float directionalityLimit = 5f;
 
         private void Update()
         {
@@ -70,27 +73,41 @@ namespace Chowen
             float xSpawn;
             float zSpawn;
             Vector3 spawnPos;
+            Vector2 playerPos;
             bool illegal = false;
             int spawnCounter = 0;
+            Vector2 directionSpawnLimit;
+            float directionality;
+
             do
             {
                 xSpawn = Random.Range(-5.8f, 5.8f);
                 zSpawn = Random.Range(-5.8f, 5.8f);
                 spawnPos = new Vector3(xSpawn, 0.5f, zSpawn);
+                playerPos = new Vector2(player.position.x, player.position.z);
+                directionSpawnLimit = playerPos + new Vector2(playerRB.velocity.x, playerRB.velocity.z) * velocityMultiplier;
+                directionality = Vector2.Angle(spawnPos, directionSpawnLimit);
 
                 spawnCounter++;
-
-                if (Mathf.Abs(xSpawn) + Mathf.Abs(zSpawn) > 5.8f) // Must be inside spawn platform
+                if (Vector2.Distance(new Vector2(xSpawn, zSpawn), playerPos) < Vector2.Distance(playerPos, directionSpawnLimit) && directionality < directionalityLimit) // Must not be in path of player movement (scaling depending on velocity of player)
                 {
                     illegal = true;
+                    Debug.Log("In the path of player");
                 }
-                else if (Vector2.Distance(new Vector2(xSpawn, zSpawn), new Vector2(player.position.x, player.position.z)) < spawnDistanceFromPlayer) // Must be far enough away from player
+                else if (Mathf.Abs(xSpawn) + Mathf.Abs(zSpawn) > 5.8f) // Must be inside spawn platform
                 {
                     illegal = true;
+                    Debug.Log("Outside of spawn platform");
+                }
+                else if (Vector2.Distance(new Vector2(xSpawn, zSpawn), playerPos) < spawnDistanceFromPlayer) // Must be far enough away from player
+                {
+                    illegal = true;
+                    Debug.Log("Too close to player");
                 }
                 else if (Vector3.Distance(spawnPos, goodSpawnPos) < spawnDistanceFromPellets || Vector3.Distance(spawnPos, badSpawnPos) < spawnDistanceFromPellets || Vector3.Distance(spawnPos, skullSpawnPos) < spawnDistanceFromPellets) // Must be far enough away from other pellets
                 {
                     illegal = true;
+                    Debug.Log("Too close to other pellets");
                 }
                 else illegal = false;
 

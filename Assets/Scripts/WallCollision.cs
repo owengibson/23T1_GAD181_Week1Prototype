@@ -9,7 +9,7 @@ namespace Chowen
         [SerializeField] private AudioManager audioManager;
         private void OnCollisionEnter(Collision collision)
         {
-            Debug.Log(collision.gameObject);
+            //Debug.Log(collision.gameObject);
             audioManager.Play("WallCollision");
         }
     }

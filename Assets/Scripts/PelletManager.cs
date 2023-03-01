@@ -34,7 +34,7 @@ namespace Chowen
 
         private void Update()
         {
-            if (!isHeartActive)
+            if (!isHeartActive && GameManager.isGameActive)
             {
                 // Good pellet spawning
                 goodSpawnPos = SpawnPosCalculator();
@@ -58,7 +58,7 @@ namespace Chowen
             }
             // Death pellet spawning
             skullSpawnTimer += Time.deltaTime;
-            if (skullSpawnTimer >= 5f && GameManager.isGameActive)
+            if (skullSpawnTimer >= 5f && Timer.timeRemaining < 10)
             {
                 skullSpawnTimer = 0;
                 skullSpawnPos = SpawnPosCalculator();

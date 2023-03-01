@@ -7,9 +7,10 @@ namespace Chowen
 {
     public class Timer : MonoBehaviour
     {
-        public float timeRemaining = 10f;
+        public static float timeRemaining = 15f;
         private TextMeshProUGUI timerText;
         [SerializeField] private AudioManager audioManager;
+        [SerializeField] private TextMeshProUGUI startCountdownTimer;
 
         private void Start()
         {
@@ -17,10 +18,22 @@ namespace Chowen
         }
         private void Update()
         {
-            if (timeRemaining > 0)
+            if (timeRemaining > 0 && GameManager.isGameActive)
             {
                 timeRemaining -= Time.deltaTime;
-                timerText.text = timeRemaining.ToString("00.00");
+                if (timeRemaining > 10)
+                {
+                    //this is the start countdown timer
+                    startCountdownTimer.text = (timeRemaining - 10).ToString("0.");
+                }
+                else
+                {
+                    //this is the game timer
+                    timerText.text = timeRemaining.ToString("00.00");
+                    //this is the start countdown timer
+                    startCountdownTimer.text = "";
+                }
+                
             }
             else
             {

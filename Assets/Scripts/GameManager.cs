@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,16 +7,17 @@ namespace Chowen
 {
     public class GameManager : MonoBehaviour
     {
-        private float timeCounter = 0f;
+        private float timeCounter = 15f;
         public static bool isGameActive = true;
         private bool endSoundPlayed = false;
         [SerializeField] private GameObject endScreen;
         [SerializeField] private TextMeshProUGUI endTimeText;
+        [SerializeField] private TextMeshProUGUI startCountdownTimer;
         [SerializeField] private AudioManager audioManager;
 
         private void Start()
         {
-            isGameActive = true;
+            //StartCoroutine(Countdown(3));
         }
 
         private void Update()
@@ -25,6 +27,23 @@ namespace Chowen
                 timeCounter += Time.deltaTime;
             }
         }
+
+        //IEnumerator Countdown(int seconds)
+        //{
+        //    int count = seconds;
+
+        //    while (count > 0)
+        //    {
+        //        startCountdownTimer.text = count.ToString();
+        //        // display something...
+        //        yield return new WaitForSeconds(1);
+        //        count--;
+        //    }
+
+        //    // count down is finished...
+        //    startCountdownTimer.text = "";
+        //    isGameActive = true;
+        //}
 
         private void EndScreen()
         {

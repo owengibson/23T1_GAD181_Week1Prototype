@@ -15,6 +15,7 @@ namespace Chowen
         private void Start()
         {
             timerText = GetComponent<TextMeshProUGUI>();
+            timeRemaining = 13f;
         }
         private void Update()
         {

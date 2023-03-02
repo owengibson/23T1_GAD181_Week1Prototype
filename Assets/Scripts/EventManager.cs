@@ -17,5 +17,8 @@ namespace Chowen
 
         public delegate void StringDelegate(string str);
         public static StringDelegate OnPelletEaten;
+
+        public delegate void LeaderboardDelegate(string name, int score);
+        public static LeaderboardDelegate OnLeaderboardSubmit;
     }
 }

@@ -7,7 +7,7 @@ namespace Chowen
 {
     public class Timer : MonoBehaviour
     {
-        public static float timeRemaining = 15f;
+        public static float timeRemaining = 13f;
         private TextMeshProUGUI timerText;
         [SerializeField] private AudioManager audioManager;
         [SerializeField] private TextMeshProUGUI startCountdownTimer;

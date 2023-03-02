@@ -7,7 +7,7 @@ namespace Chowen
 {
     public class GameManager : MonoBehaviour
     {
-        private float timeCounter = 15f;
+        public static float timeCounter = 15f;
         public static bool isGameActive = true;
         private bool endSoundPlayed = false;
         [SerializeField] private GameObject endScreen;

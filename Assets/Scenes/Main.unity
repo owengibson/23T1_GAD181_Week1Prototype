@@ -843,7 +843,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Score
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5d4016663d6857d48b476cd01a9c5c56, type: 2}
   m_sharedMaterial: {fileID: -2042319325610428555, guid: 5d4016663d6857d48b476cd01a9c5c56,
@@ -1419,7 +1419,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Score
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5d4016663d6857d48b476cd01a9c5c56, type: 2}
   m_sharedMaterial: {fileID: -2042319325610428555, guid: 5d4016663d6857d48b476cd01a9c5c56,
@@ -1660,7 +1660,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: name
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b929059eb56fc5c42aef7022592795c2, type: 2}
   m_sharedMaterial: {fileID: -1098336506343954864, guid: b929059eb56fc5c42aef7022592795c2,
@@ -1755,7 +1755,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &573670628
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1796,7 +1796,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Score
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5d4016663d6857d48b476cd01a9c5c56, type: 2}
   m_sharedMaterial: {fileID: -2042319325610428555, guid: 5d4016663d6857d48b476cd01a9c5c56,
@@ -2126,7 +2126,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: name
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b929059eb56fc5c42aef7022592795c2, type: 2}
   m_sharedMaterial: {fileID: -1098336506343954864, guid: b929059eb56fc5c42aef7022592795c2,
@@ -2408,7 +2408,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Score
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5d4016663d6857d48b476cd01a9c5c56, type: 2}
   m_sharedMaterial: {fileID: -2042319325610428555, guid: 5d4016663d6857d48b476cd01a9c5c56,
@@ -3309,6 +3309,16 @@ MonoBehaviour:
     volume: 0.124
     pitch: 0.47
     source: {fileID: 0}
+  - name: Tick
+    clip: {fileID: 8300000, guid: 97bc0f0e33480f342a34a1977b507c40, type: 3}
+    volume: 0.301
+    pitch: 2
+    source: {fileID: 0}
+  - name: Tick2
+    clip: {fileID: 8300000, guid: 97bc0f0e33480f342a34a1977b507c40, type: 3}
+    volume: 0.301
+    pitch: 3
+    source: {fileID: 0}
 --- !u!4 &823184945
 Transform:
   m_ObjectHideFlags: 0
@@ -3972,7 +3982,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: name
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b929059eb56fc5c42aef7022592795c2, type: 2}
   m_sharedMaterial: {fileID: -1098336506343954864, guid: b929059eb56fc5c42aef7022592795c2,
@@ -7750,7 +7760,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh53138
+  m_Name: pb_Mesh27670
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7966,7 +7976,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Score
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5d4016663d6857d48b476cd01a9c5c56, type: 2}
   m_sharedMaterial: {fileID: -2042319325610428555, guid: 5d4016663d6857d48b476cd01a9c5c56,
@@ -8842,7 +8852,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: name
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b929059eb56fc5c42aef7022592795c2, type: 2}
   m_sharedMaterial: {fileID: -1098336506343954864, guid: b929059eb56fc5c42aef7022592795c2,
@@ -9192,7 +9202,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: name
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b929059eb56fc5c42aef7022592795c2, type: 2}
   m_sharedMaterial: {fileID: -1098336506343954864, guid: b929059eb56fc5c42aef7022592795c2,

@@ -17,7 +17,8 @@ namespace Chowen
 
         private void Start()
         {
-            //StartCoroutine(Countdown(3));
+            timeCounter = 15f;
+            isGameActive = true;
         }
 
         private void Update()
@@ -48,6 +49,7 @@ namespace Chowen
         private void EndScreen()
         {
             isGameActive = false;
+            Timer.startGameCountdown = false;
             endScreen.SetActive(true);
             endTimeText.text = timeCounter.ToString("#0") + " seconds";
             if (endSoundPlayed == false)

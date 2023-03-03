@@ -10,7 +10,11 @@ namespace Chowen
 
         private void OnCollisionEnter(Collision collision)
         {
-            audioManager.Play("WallCollision");
+            if (GameManager.isGameActive)
+            {
+                audioManager.Play("WallCollision");
+            }
+            
         }
     }
 }

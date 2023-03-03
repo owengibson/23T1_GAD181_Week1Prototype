@@ -17,7 +17,7 @@ namespace Chowen
 
         private void FixedUpdate()
         {
-            if (Timer.timeRemaining < 10)
+            if (Timer.startGameCountdown)
             {
                 xInput = Input.GetAxis("Horizontal");
                 zInput = Input.GetAxis("Vertical");

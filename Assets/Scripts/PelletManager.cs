@@ -58,7 +58,7 @@ namespace Chowen
             }
             // Death pellet spawning
             skullSpawnTimer += Time.deltaTime;
-            if (skullSpawnTimer >= 5f && Timer.timeRemaining < 10)
+            if (skullSpawnTimer >= 5f && Timer.startGameCountdown)
             {
                 skullSpawnTimer = 0;
                 skullSpawnPos = SpawnPosCalculator();

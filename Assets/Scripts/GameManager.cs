@@ -20,6 +20,7 @@ namespace Chowen
         {
             isGameActive = false;
             hasGameEnded = false;
+            timeCounter = 0f;
         }
         private void Update()
         {

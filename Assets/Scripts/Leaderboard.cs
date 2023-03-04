@@ -41,9 +41,11 @@ public class Leaderboard : MonoBehaviour
     private void OnEnable()
     {
         EventManager.OnLeaderboardSubmit += SetLeaderboardEntry;
+        //EventManager.GameOver += GetLeaderboard;
     }
     private void OnDisable()
     {
         EventManager.OnLeaderboardSubmit -= SetLeaderboardEntry;
+        //EventManager.GameOver -= GetLeaderboard;
     }
 }

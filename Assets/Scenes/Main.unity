@@ -1755,7 +1755,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &573670628
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3301,7 +3301,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: EndSound
     clip: {fileID: 8300000, guid: 6726f255b9e51ba4483d2233da9264b8, type: 3}
-    volume: 1
+    volume: 0.6
     pitch: 1
     source: {fileID: 0}
   - name: WallCollision
@@ -3318,6 +3318,27 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 97bc0f0e33480f342a34a1977b507c40, type: 3}
     volume: 0.301
     pitch: 3
+    source: {fileID: 0}
+  - name: MainLoop
+    clip: {fileID: 8300000, guid: e66b004f349b702478727ee1a620cdb2, type: 3}
+    volume: 0.75
+    pitch: 1
+    source: {fileID: 0}
+  - name: MainStart
+    clip: {fileID: 8300000, guid: 8f531e2efa5fe3c4db83505f7121ba38, type: 3}
+    volume: 0.75
+    pitch: 1
+    source: {fileID: 0}
+  - name: DeathScreen
+    clip: {fileID: 8300000, guid: 81403709f02905946b63d43c17249109, type: 3}
+    volume: 0.75
+    pitch: 1
+    source: {fileID: 0}
+  mainStart:
+    name: 
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
     source: {fileID: 0}
 --- !u!4 &823184945
 Transform:

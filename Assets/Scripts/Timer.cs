@@ -17,13 +17,13 @@ namespace Chowen
         {
             startGameCountdown = false;
             timerText = GetComponent<TextMeshProUGUI>();
-            timeRemaining = 13f;
+            timeRemaining = 13.5f;
         }
         private void Update()
         {
             TimerSound();
 
-            if (timeRemaining > 0 && GameManager.isGameActive)
+            if (timeRemaining > 0 && !GameManager.hasGameEnded)
             {
                 timeRemaining -= Time.deltaTime;
 
@@ -43,6 +43,12 @@ namespace Chowen
                 }
                 else
                 {
+                    GameManager.isGameActive = true;
+                    if (!audioManager.mainStart.source.isPlaying)
+                    {
+                        audioManager.Play("MainStart");
+                        audioManager.Play("DeathScreen");
+                    }
                     //this is the game timer
                     timerText.text = timeRemaining.ToString("00.00");
                     //this is the start countdown timer
@@ -85,7 +91,7 @@ namespace Chowen
 
         private void InitialCoundownTimer()
         {
-            if (timeRemaining <= 13 && timeRemaining >= 12.99 | timeRemaining <= 12 && timeRemaining >= 11.99 | timeRemaining <= 11 && timeRemaining >= 10.99)
+            if (timeRemaining <= 13 && timeRemaining >= 12.99 || timeRemaining <= 12 && timeRemaining >= 11.99 || timeRemaining <= 11 && timeRemaining >= 10.99)
             {
                 audioManager.Play("Tick");
                 Debug.Log("Tick");

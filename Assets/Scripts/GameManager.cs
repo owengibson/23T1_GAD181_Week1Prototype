@@ -7,8 +7,9 @@ namespace Chowen
 {
     public class GameManager : MonoBehaviour
     {
-        public static float timeCounter = 15f;
-        public static bool isGameActive = true;
+        public static float timeCounter = 0f;
+        public static bool isGameActive = false;
+        public static bool hasGameEnded = false;
         private bool endSoundPlayed = false;
         [SerializeField] private GameObject endScreen;
         [SerializeField] private TextMeshProUGUI endTimeText;
@@ -17,10 +18,9 @@ namespace Chowen
 
         private void Start()
         {
-            timeCounter = 15f;
-            isGameActive = true;
+            isGameActive = false;
+            hasGameEnded = false;
         }
-
         private void Update()
         {
             if (isGameActive)
@@ -49,6 +49,7 @@ namespace Chowen
         private void EndScreen()
         {
             isGameActive = false;
+            hasGameEnded = true;
             Timer.startGameCountdown = false;
             endScreen.SetActive(true);
             endTimeText.text = timeCounter.ToString("#0") + " seconds";

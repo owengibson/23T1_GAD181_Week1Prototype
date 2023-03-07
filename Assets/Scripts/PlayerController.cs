@@ -17,10 +17,13 @@ namespace Chowen
 
         private void FixedUpdate()
         {
-            xInput = Input.GetAxis("Horizontal");
-            zInput = Input.GetAxis("Vertical");
+            if (Timer.startGameCountdown)
+            {
+                xInput = Input.GetAxis("Horizontal");
+                zInput = Input.GetAxis("Vertical");
 
-            rb.AddForce(new Vector3(xInput, 0, zInput) * movementSpeed);
+                rb.AddForce(new Vector3(xInput, 0, zInput) * movementSpeed);
+            }
         }
 
         private void OnDrawGizmos()

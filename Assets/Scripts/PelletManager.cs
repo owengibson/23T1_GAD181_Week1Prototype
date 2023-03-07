@@ -34,37 +34,40 @@ namespace Chowen
 
         private void Update()
         {
-            if (!isHeartActive)
+            if (GameManager.isGameActive)
             {
-                // Good pellet spawning
-                goodSpawnPos = SpawnPosCalculator();
-                
-                Instantiate(heartPrefab, goodSpawnPos, Quaternion.Euler(new Vector3(0, Random.Range(0f, 360f), 0)));
-                isHeartActive = true;
-
-                audioManager.Play("SpawnGem");
-
-                // Bad pellet spawning
-
-                if (Random.Range(1, 5) == 4 && !isPoisonActive)
+                if (!isHeartActive)
                 {
-                    badSpawnPos = SpawnPosCalculator();
-                    Instantiate(poisonPrefab, badSpawnPos, Quaternion.Euler(0, Random.Range(0f, 360f), 0));
-                    isPoisonActive = true;
+                    // Good pellet spawning
+                    goodSpawnPos = SpawnPosCalculator();
+
+                    Instantiate(heartPrefab, goodSpawnPos, Quaternion.Euler(new Vector3(0, Random.Range(0f, 360f), 0)));
+                    isHeartActive = true;
+
+                    audioManager.Play("SpawnGem");
+
+                    // Bad pellet spawning
+
+                    if (Random.Range(1, 5) == 4 && !isPoisonActive)
+                    {
+                        badSpawnPos = SpawnPosCalculator();
+                        Instantiate(poisonPrefab, badSpawnPos, Quaternion.Euler(0, Random.Range(0f, 360f), 0));
+                        isPoisonActive = true;
+
+                        audioManager.Play("SpawnGem");
+                    }
+                }
+
+                // Death pellet spawning
+                skullSpawnTimer += Time.deltaTime;
+                if (skullSpawnTimer >= 7.5f)
+                {
+                    skullSpawnTimer = 0;
+                    skullSpawnPos = SpawnPosCalculator();
+                    Instantiate(skullPrefab, skullSpawnPos, Quaternion.Euler(new Vector3(0, Random.Range(0f, 360f), 0)));
 
                     audioManager.Play("SpawnGem");
                 }
-
-            }
-            // Death pellet spawning
-            skullSpawnTimer += Time.deltaTime;
-            if (skullSpawnTimer >= 5f && GameManager.isGameActive)
-            {
-                skullSpawnTimer = 0;
-                skullSpawnPos = SpawnPosCalculator();
-                Instantiate(skullPrefab, skullSpawnPos, Quaternion.Euler(new Vector3(0, Random.Range(0f, 360f), 0)));
-
-                audioManager.Play("SpawnGem");
             }
         }
 

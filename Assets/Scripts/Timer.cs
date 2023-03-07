@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,30 +8,71 @@ namespace Chowen
 {
     public class Timer : MonoBehaviour
     {
-        public float timeRemaining = 10f;
+        public static float timeRemaining;
+        public static bool startGameCountdown = false;
         private TextMeshProUGUI timerText;
         [SerializeField] private AudioManager audioManager;
+        [SerializeField] private TextMeshProUGUI startCountdownTimer;
+        public static bool hasBypassKeyPressed = false;
 
         private void Start()
         {
+            hasBypassKeyPressed = false;
+            startGameCountdown = false;
             timerText = GetComponent<TextMeshProUGUI>();
+            timeRemaining = 13.5f;
         }
         private void Update()
         {
-            if (timeRemaining > 0)
+            TimerSound();
+            InitialCoundownTimer();
+
+            if (timeRemaining > 0 && !GameManager.hasGameEnded)
             {
                 timeRemaining -= Time.deltaTime;
-                timerText.text = timeRemaining.ToString("00.00");
+
+                if (timeRemaining > 10)
+                {
+                    if (!startGameCountdown)
+                    {
+                        //this is the start countdown timer
+                        startCountdownTimer.text = (timeRemaining - 10).ToString("0.");
+                    }
+                    else
+                    {
+                        startGameCountdown = true;
+                        timerText.text = timeRemaining.ToString("00.00");
+                    }
+                }
+                else
+                {
+                    GameManager.isGameActive = true;
+                    if (!audioManager.mainStart.source.isPlaying)
+                    {
+                        audioManager.Play("MainStart");
+                        audioManager.Play("DeathScreen");
+                    }
+                    //this is the game timer
+                    timerText.text = timeRemaining.ToString("00.00");
+                    //this is the start countdown timer
+                    startCountdownTimer.text = "";
+                    startGameCountdown = true;
+                }
+
+                
             }
             else
             {
-                EventManager.GameOver?.Invoke();
+
+                if (!hasBypassKeyPressed) EventManager.GameOver?.Invoke();
             }
 
-            if (GameManager.isGameActive == true)
-            {
-                TimerSound();
-            }
+            if (Input.GetKeyDown(KeyCode.Alpha0)) hasBypassKeyPressed = true;
+
+            //if (GameManager.isGameActive == true)
+            //{
+            //    TimerSound();
+            //}
         }
 
         private void TimerSound()
@@ -52,9 +94,21 @@ namespace Chowen
             {
                 audioManager.Play("0");
             }
-
         }
 
+        private void InitialCoundownTimer()
+        {
+            if (timeRemaining == 13.5 || timeRemaining <= 12.71 && timeRemaining >= 12.7 || timeRemaining <= 11.71 && timeRemaining >= 11.7)
+            {
+                audioManager.Play("Tick");
+                Debug.Log("Tick");
+            }
+            else if (timeRemaining <= 10.71 && timeRemaining >= 10.7)
+            {
+                audioManager.Play("Tick2");
+                Debug.Log("Tick2");
+            }
+        }
         private void AddTime(float time)
         {
             timeRemaining += time;

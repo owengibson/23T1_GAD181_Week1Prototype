@@ -7,7 +7,7 @@ namespace Chowen
 {
     public class Timer : MonoBehaviour
     {
-        [SerializeField] public static float timeRemaining = 13f;
+        public static float timeRemaining;
         public static bool startGameCountdown = false;
         private TextMeshProUGUI timerText;
         [SerializeField] private AudioManager audioManager;
@@ -22,6 +22,7 @@ namespace Chowen
         private void Update()
         {
             TimerSound();
+            InitialCoundownTimer();
 
             if (timeRemaining > 0 && !GameManager.hasGameEnded)
             {
@@ -33,7 +34,6 @@ namespace Chowen
                     {
                         //this is the start countdown timer
                         startCountdownTimer.text = (timeRemaining - 10).ToString("0.");
-                        InitialCoundownTimer();
                     }
                     else
                     {
@@ -91,12 +91,12 @@ namespace Chowen
 
         private void InitialCoundownTimer()
         {
-            if (timeRemaining <= 13 && timeRemaining >= 12.99 || timeRemaining <= 12 && timeRemaining >= 11.99 || timeRemaining <= 11 && timeRemaining >= 10.99)
+            if (timeRemaining == 13.5 || timeRemaining <= 12.71 && timeRemaining >= 12.7 || timeRemaining <= 11.71 && timeRemaining >= 11.7)
             {
                 audioManager.Play("Tick");
                 Debug.Log("Tick");
             }
-            else if (timeRemaining <= 10.01 && timeRemaining >= 10)
+            else if (timeRemaining <= 10.71 && timeRemaining >= 10.7)
             {
                 audioManager.Play("Tick2");
                 Debug.Log("Tick2");

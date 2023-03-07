@@ -13,10 +13,11 @@ namespace Chowen
         private TextMeshProUGUI timerText;
         [SerializeField] private AudioManager audioManager;
         [SerializeField] private TextMeshProUGUI startCountdownTimer;
-        private bool hasBypassKeyPressed = false;
+        public static bool hasBypassKeyPressed = false;
 
         private void Start()
         {
+            hasBypassKeyPressed = false;
             startGameCountdown = false;
             timerText = GetComponent<TextMeshProUGUI>();
             timeRemaining = 13.5f;
@@ -66,7 +67,7 @@ namespace Chowen
                 if (!hasBypassKeyPressed) EventManager.GameOver?.Invoke();
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha0)) hasBypassKeyPressed = !hasBypassKeyPressed;
+            if (Input.GetKeyDown(KeyCode.Alpha0)) hasBypassKeyPressed = true;
 
             //if (GameManager.isGameActive == true)
             //{

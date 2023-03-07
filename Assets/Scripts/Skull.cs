@@ -10,9 +10,10 @@ namespace Chowen
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
+            if (other.CompareTag("Player") && !Timer.hasBypassKeyPressed)
             {
                 EventManager.GameOver?.Invoke();
+                Destroy(gameObject);
             }
         }
 

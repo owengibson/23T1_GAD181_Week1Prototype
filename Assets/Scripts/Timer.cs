@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,6 +13,7 @@ namespace Chowen
         private TextMeshProUGUI timerText;
         [SerializeField] private AudioManager audioManager;
         [SerializeField] private TextMeshProUGUI startCountdownTimer;
+        private bool hasBypassKeyPressed = false;
 
         private void Start()
         {
@@ -55,12 +57,16 @@ namespace Chowen
                     startCountdownTimer.text = "";
                     startGameCountdown = true;
                 }
+
                 
             }
             else
             {
-                EventManager.GameOver?.Invoke();
+
+                if (!hasBypassKeyPressed) EventManager.GameOver?.Invoke();
             }
+
+            if (Input.GetKeyDown(KeyCode.Alpha0)) hasBypassKeyPressed = !hasBypassKeyPressed;
 
             //if (GameManager.isGameActive == true)
             //{

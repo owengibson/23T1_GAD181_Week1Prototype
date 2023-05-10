@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Chowen
+namespace TSTD
 {
     public class GameManager : MonoBehaviour
     {

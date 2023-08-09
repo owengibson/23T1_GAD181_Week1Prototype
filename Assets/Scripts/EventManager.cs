@@ -1,24 +1,24 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Chowen
+namespace TenSecondsToDie
 {
     public class EventManager : MonoBehaviour
     {
-        public delegate void FloatDelegate(float time);
-        public static FloatDelegate HeartEaten;
-        public static FloatDelegate BadPelletEaten;
+        
+        public static Action<Player> HeartEaten;
+        public static Action<Player> PoisonEaten;
+        public static Action<Player> SkullEaten;
 
-        public delegate void VoidDelegate();
-        public static VoidDelegate OnHeartDestroy;
-        public static VoidDelegate OnPoisonDestroy;
-        public static VoidDelegate GameOver;
+        public static Action OnHeartDestroy;
+        public static Action OnPoisonDestroy;
+        public static Action GameOver;
+        public static Action OnTwoPlayersConnected;
+        
+        public static Action<string> OnPelletEaten;
 
-        public delegate void StringDelegate(string str);
-        public static StringDelegate OnPelletEaten;
-
-        public delegate void LeaderboardDelegate(string name, int score);
-        public static LeaderboardDelegate OnLeaderboardSubmit;
+        public static Action<string, int> OnLeaderboardSubmit;
     }
 }

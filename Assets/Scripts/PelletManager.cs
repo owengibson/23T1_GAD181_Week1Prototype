@@ -1,13 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Unity.Netcode;
 using UnityEngine;
 
-namespace Chowen
+namespace TenSecondsToDie
 {
-    public class PelletManager : MonoBehaviour
+    public class PelletManager : NetworkBehaviour
     {
+        /*private NetworkVariable<bool> isHeartActive = new(false);
+        private NetworkVariable<bool> isPoisonActive = new(false);*/
+
         private bool isHeartActive = false;
         private bool isPoisonActive = false;
+        private bool arePlayersFound = false;
 
         private float skullSpawnTimer = 0f;
 
@@ -15,6 +22,7 @@ namespace Chowen
         private Vector3 badSpawnPos = new Vector3(10f, 10f, 10f);
         private Vector3 skullSpawnPos = new Vector3(10f, 10f, 10f);
 
+        private Transform[] players;
 
         [Header("Object References")]
         [SerializeField] private GameObject heartPrefab;
@@ -22,9 +30,8 @@ namespace Chowen
         [SerializeReference] private GameObject skullPrefab;
 
         [Space(15f)]
-        [SerializeField] private Transform player;
-        [SerializeField] private Rigidbody playerRB;
         [SerializeField] private AudioManager audioManager;
+        [SerializeField] private GameManager gameManager;
 
         [Header("Variables")]
         [SerializeField] float spawnDistanceFromPlayer = 2.5f;
@@ -32,26 +39,42 @@ namespace Chowen
         [SerializeField] float velocityMultiplier = 0.25f;
         [SerializeField] float directionalityLimit = 5f;
 
+        private void FindPlayers()
+        {
+            players = new Transform[2];
+
+            for (int i = 0; i < 2; i++)
+            {
+               PlayerController[] playerControllers = FindObjectsOfType<PlayerController>();
+                players[i] = playerControllers[i].transform;
+            }
+            arePlayersFound = true;
+        }
+
         private void Update()
         {
-            if (GameManager.isGameActive)
+            if (arePlayersFound)
             {
                 if (!isHeartActive)
                 {
                     // Good pellet spawning
+                    GameObject spawnedHeart;
                     goodSpawnPos = SpawnPosCalculator();
 
-                    Instantiate(heartPrefab, goodSpawnPos, Quaternion.Euler(new Vector3(0, Random.Range(0f, 360f), 0)));
+                    spawnedHeart = Instantiate(heartPrefab, goodSpawnPos, Quaternion.Euler(new Vector3(0, UnityEngine.Random.Range(0f, 360f), 0)));
+                    spawnedHeart.GetComponent<NetworkObject>().Spawn(true);
                     isHeartActive = true;
 
                     audioManager.Play("SpawnGem");
 
-                    // Bad pellet spawning
 
-                    if (Random.Range(1, 5) == 4 && !isPoisonActive)
+                    // Bad pellet spawning
+                    if (UnityEngine.Random.Range(1, 5) == 4 && !isPoisonActive)
                     {
+                        GameObject spawnedPoison;
                         badSpawnPos = SpawnPosCalculator();
-                        Instantiate(poisonPrefab, badSpawnPos, Quaternion.Euler(0, Random.Range(0f, 360f), 0));
+                        spawnedPoison = Instantiate(poisonPrefab, badSpawnPos, Quaternion.Euler(0, UnityEngine.Random.Range(0f, 360f), 0));
+                        spawnedPoison.GetComponent<NetworkObject>().Spawn(true);
                         isPoisonActive = true;
 
                         audioManager.Play("SpawnGem");
@@ -62,9 +85,12 @@ namespace Chowen
                 skullSpawnTimer += Time.deltaTime;
                 if (skullSpawnTimer >= 7.5f)
                 {
+                    GameObject spawnedSkull;
+
                     skullSpawnTimer = 0;
                     skullSpawnPos = SpawnPosCalculator();
-                    Instantiate(skullPrefab, skullSpawnPos, Quaternion.Euler(new Vector3(0, Random.Range(0f, 360f), 0)));
+                    spawnedSkull = Instantiate(skullPrefab, skullSpawnPos, Quaternion.Euler(new Vector3(0, UnityEngine.Random.Range(0f, 360f), 0)));
+                    spawnedSkull.GetComponent<NetworkObject>().Spawn(true);
 
                     audioManager.Play("SpawnGem");
                 }
@@ -76,44 +102,68 @@ namespace Chowen
             float xSpawn;
             float zSpawn;
             Vector3 spawnPos;
-            Vector2 playerPos;
+            Vector2[] playerPos = new Vector2[players.Length];
             bool illegal = false;
             int spawnCounter = 0;
-            Vector2 directionSpawnLimit;
-            float directionality;
+            Vector2[] directionSpawnLimit = new Vector2[players.Length];
+            float[] directionality = new float[players.Length];
 
             do
             {
-                xSpawn = Random.Range(-5.8f, 5.8f);
-                zSpawn = Random.Range(-5.8f, 5.8f);
+                xSpawn = UnityEngine.Random.Range(-5.8f, 5.8f);
+                zSpawn = UnityEngine.Random.Range(-5.8f, 5.8f);
                 spawnPos = new Vector3(xSpawn, 0.5f, zSpawn);
-                playerPos = new Vector2(player.position.x, player.position.z);
-                directionSpawnLimit = playerPos + new Vector2(playerRB.velocity.x, playerRB.velocity.z) * velocityMultiplier;
-                directionality = Vector2.Angle(spawnPos, directionSpawnLimit);
+                for (int i = 0; i < players.Length; i++) playerPos[i] = new Vector2(players[i].position.x, players[i].position.z);
+                for (int i = 0; i < players.Length; i++)
+                {
+                    Rigidbody rb = players[i].GetComponent<Rigidbody>();
+                    directionSpawnLimit[i] = playerPos[i] + new Vector2(rb.velocity.x, rb.velocity.z) * velocityMultiplier;
+                }
+                for (int i = 0; i < players.Length; i++) directionality[i] = Vector2.Angle(spawnPos, directionSpawnLimit[i]);
 
-                spawnCounter++;
-                if (Vector2.Distance(new Vector2(xSpawn, zSpawn), playerPos) < Vector2.Distance(playerPos, directionSpawnLimit) && directionality < directionalityLimit) // Must not be in path of player movement (scaling depending on velocity of player)
+                try
                 {
-                    illegal = true;
-                    Debug.Log("In the path of player");
-                }
-                else if (Mathf.Abs(xSpawn) + Mathf.Abs(zSpawn) > 5.8f) // Must be inside spawn platform
-                {
-                    illegal = true;
-                    Debug.Log("Outside of spawn platform");
-                }
-                else if (Vector2.Distance(new Vector2(xSpawn, zSpawn), playerPos) < spawnDistanceFromPlayer) // Must be far enough away from player
-                {
-                    illegal = true;
-                    Debug.Log("Too close to player");
-                }
-                else if (Vector3.Distance(spawnPos, goodSpawnPos) < spawnDistanceFromPellets || Vector3.Distance(spawnPos, badSpawnPos) < spawnDistanceFromPellets || Vector3.Distance(spawnPos, skullSpawnPos) < spawnDistanceFromPellets) // Must be far enough away from other pellets
-                {
-                    illegal = true;
-                    Debug.Log("Too close to other pellets");
-                }
-                else illegal = false;
+                    spawnCounter++;
+                    for (int i = 0; i < players.Length; i++)
+                    {
+                        // Must not be in path of player movement (scaling depending on velocity of player)
+                        if (Vector2.Distance(new Vector2(xSpawn, zSpawn), playerPos[i]) < Vector2.Distance(playerPos[i], directionSpawnLimit[i]) && directionality[i] < directionalityLimit)
+                        {
+                            illegal = true;
+                            Debug.Log("In the path of player");
+                            throw new IllegalSpawnException();
+                        }
 
+                        // Must be far enough away from player
+                        else if (Vector2.Distance(new Vector2(xSpawn, zSpawn), playerPos[i]) < spawnDistanceFromPlayer)
+                        {
+                            illegal = true;
+                            Debug.Log("Too close to player");
+                            throw new IllegalSpawnException();
+                        }
+                    }
+
+                    // Must be inside spawn platform
+                    if (Mathf.Abs(xSpawn) + Mathf.Abs(zSpawn) > 5.8f)
+                    {
+                        illegal = true;
+                        Debug.Log("Outside of spawn platform");
+                        throw new IllegalSpawnException();
+                    }
+
+                    // Must be far enough away from other pellets
+                    else if (Vector3.Distance(spawnPos, goodSpawnPos) < spawnDistanceFromPellets || Vector3.Distance(spawnPos, badSpawnPos) < spawnDistanceFromPellets || Vector3.Distance(spawnPos, skullSpawnPos) < spawnDistanceFromPellets)
+                    {
+                        illegal = true;
+                        Debug.Log("Too close to other pellets");
+                        throw new IllegalSpawnException();
+                    }
+                    else illegal = false;
+                }
+                catch (IllegalSpawnException e)
+                {
+                    continue;
+                }
             } while (illegal);
             Debug.Log(spawnCounter + " " + xSpawn + ", " + zSpawn);
             return spawnPos;
@@ -133,11 +183,18 @@ namespace Chowen
         {
             EventManager.OnHeartDestroy += ResetActiveGoodPellets;
             EventManager.OnPoisonDestroy += ResetActiveBadPellets;
+            EventManager.OnTwoPlayersConnected += FindPlayers;
         }
         private void OnDisable()
         {
             EventManager.OnHeartDestroy -= ResetActiveGoodPellets;
             EventManager.OnPoisonDestroy -= ResetActiveBadPellets;
+            EventManager.OnTwoPlayersConnected -= FindPlayers;
         }
+    }
+
+    public class IllegalSpawnException : Exception
+    {
+
     }
 }

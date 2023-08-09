@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-namespace Chowen
+namespace TenSecondsToDie
 {
     public class AudioManager : MonoBehaviour
     {

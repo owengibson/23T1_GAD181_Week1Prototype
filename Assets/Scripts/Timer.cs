@@ -1,10 +1,10 @@
-using System;
+/*using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-namespace Chowen
+namespace TenSecondsToDie
 {
     public class Timer : MonoBehaviour
     {
@@ -122,12 +122,12 @@ namespace Chowen
         private void OnEnable()
         {
             EventManager.HeartEaten += AddTime;
-            EventManager.BadPelletEaten += SubtractTime;
+            EventManager.PoisonEaten += SubtractTime;
         }
         private void OnDisable()
         {
             EventManager.HeartEaten -= AddTime;
-            EventManager.BadPelletEaten -= SubtractTime;
+            EventManager.PoisonEaten -= SubtractTime;
         }
     }
-}
+}*/

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Chowen
+namespace TenSecondsToDie
 {
     public class WallCollision : MonoBehaviour
     {

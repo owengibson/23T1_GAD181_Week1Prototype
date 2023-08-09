@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Chowen
+namespace TenSecondsToDie
 {
     public class TitleScreen : MonoBehaviour
     {
         private AudioSource soundtrack;
+
+        [SerializeField] private GameObject mainCanvas;
 
         private void Start()
         {
@@ -16,7 +18,8 @@ namespace Chowen
         }
         public void PlayGame()
         {
-            SceneManager.LoadScene(1);
+            gameObject.SetActive(false);
+            mainCanvas.SetActive(true);
         }
     }
 }

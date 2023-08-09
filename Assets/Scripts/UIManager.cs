@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-namespace Chowen
+namespace TenSecondsToDie
 {
     public class UIManager : MonoBehaviour
     {

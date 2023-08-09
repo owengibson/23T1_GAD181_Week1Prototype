@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-namespace Chowen
+namespace TenSecondsToDie
 {
-    public class Poison : MonoBehaviour
+    public class Poison : NetworkBehaviour
     {
         private float lifespan = 3.5f;
 
@@ -12,10 +13,10 @@ namespace Chowen
         {
             if (other.CompareTag("Player"))
             {
-                EventManager.OnPelletEaten?.Invoke("-1 second");
-                EventManager.BadPelletEaten?.Invoke(1);
+                //EventManager.OnPelletEaten?.Invoke("-1 second");
+                EventManager.PoisonEaten?.Invoke(other.GetComponent<PlayerController>().playerNum);
                 EventManager.OnPoisonDestroy?.Invoke();
-                Destroy(gameObject);
+                NetworkObject.Despawn();
             }
         }
 
@@ -27,7 +28,7 @@ namespace Chowen
             }
             else
             {
-                Destroy(gameObject);
+                NetworkObject.Despawn();
                 EventManager.OnPoisonDestroy?.Invoke();
             }
         }

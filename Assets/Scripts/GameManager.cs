@@ -1,9 +1,10 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Chowen
+namespace TenSecondsToDie
 {
     public class GameManager : MonoBehaviour
     {
@@ -15,6 +16,8 @@ namespace Chowen
         [SerializeField] private TextMeshProUGUI endTimeText;
         [SerializeField] private TextMeshProUGUI startCountdownTimer;
         [SerializeField] private AudioManager audioManager;
+
+        public List<GameObject> connectedPlayers = new();
 
         private void Start()
         {
@@ -51,7 +54,7 @@ namespace Chowen
         {
             isGameActive = false;
             hasGameEnded = true;
-            Timer.startGameCountdown = false;
+            //Timer.startGameCountdown = false;
             endScreen.SetActive(true);
             endTimeText.text = timeCounter.ToString("#0") + " seconds";
             if (endSoundPlayed == false)

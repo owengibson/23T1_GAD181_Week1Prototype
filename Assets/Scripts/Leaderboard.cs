@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Dan.Main;
-using Chowen;
+using TenSecondsToDie;
 
 public class Leaderboard : MonoBehaviour
 {

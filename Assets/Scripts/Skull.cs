@@ -1,19 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-namespace Chowen
+namespace TenSecondsToDie
 {
-    public class Skull : MonoBehaviour
+    public class Skull : NetworkBehaviour
     {
         private float lifespan = 2.5f;
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player") && !Timer.hasBypassKeyPressed)
+            if (other.CompareTag("Player"))
             {
                 EventManager.GameOver?.Invoke();
-                Destroy(gameObject);
+                NetworkObject.Despawn();
             }
         }
 
@@ -25,7 +26,7 @@ namespace Chowen
             }
             else
             {
-                Destroy(gameObject);
+                NetworkObject.Despawn();
             }
         }
     }

@@ -1,19 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-namespace Chowen
+namespace TenSecondsToDie
 {
-    public class Heart : MonoBehaviour
+    public class Heart : NetworkBehaviour
     {
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
-                EventManager.OnPelletEaten?.Invoke("+1 second");
-                EventManager.HeartEaten?.Invoke(1);
+                //EventManager.OnPelletEaten?.Invoke("+1 second");
+                EventManager.HeartEaten?.Invoke(other.GetComponent<PlayerController>().playerNum);
                 EventManager.OnHeartDestroy?.Invoke();
-                Destroy(gameObject);
+                NetworkObject.Despawn();
             }
         }
     }

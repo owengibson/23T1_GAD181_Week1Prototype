@@ -72,7 +72,7 @@ namespace TenSecondsToDie
 
 
                     // Bad pellet spawning
-                    if (UnityEngine.Random.Range(1, 5) == 4 && !isPoisonActive)
+                    if (UnityEngine.Random.Range(1, 3) == 2 && !isPoisonActive)
                     {
                         GameObject spawnedPoison;
                         badSpawnPos = SpawnPosCalculator();

@@ -10,11 +10,8 @@ namespace TenSecondsToDie
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (GameManager.isGameActive)
-            {
-                audioManager.Play("WallCollision");
-            }
-            
+            audioManager.Play("WallCollision");
+
         }
     }
 }

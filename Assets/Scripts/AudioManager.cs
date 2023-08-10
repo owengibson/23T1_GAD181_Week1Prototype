@@ -15,6 +15,8 @@ namespace TenSecondsToDie
         private Sound mainLoop;
         private Sound deathScreen;
 
+        public static Action<string> PlayAudio;
+
         private void Awake()
         {
             foreach (Sound s in sounds)
@@ -36,24 +38,39 @@ namespace TenSecondsToDie
             Sound s = Array.Find(sounds, sound => sound.name == name);
             s.source.Play();
         }
+        public void Stop(string name)
+        {
+            Sound s = Array.Find(sounds, sound => sound.name == name);
+            s.source.Stop();
+        }
 
         // --------- SOUNDTRACK MANAGEMENT -----------//
         private void Start()
         {
-            deathScreen.source.mute = true;
+            //deathScreen.source.mute = true;
             deathScreen.source.loop = true;
             mainLoop.source.loop = true;
+
+            //.source.Play();
+            deathScreen.source.Play();
         }
 
-        private void Update()
+        private void PlayMainSoundtrack()
         {
-            if (!mainStart.source.isPlaying && GameManager.isGameActive && !mainLoop.source.isPlaying)
-            {
-                mainLoop.source.Play();
-            }
+            Invoke("PlayMainLoop", mainStart.source.clip.length);
+            deathScreen.source.Stop();
+            deathScreen.source.mute = true;
+            mainStart.source.Play();
+            deathScreen.source.Play();
         }
 
-        private void SwitchToEndScreenSoundtrack()
+
+        private void PlayMainLoop()
+        {
+            mainLoop.source.Play();
+        }
+
+        public void SwitchToEndScreenSoundtrack()
         {
             deathScreen.source.mute = false;
             mainStart.source.mute = true;
@@ -61,11 +78,13 @@ namespace TenSecondsToDie
 
         private void OnEnable()
         {
-            //EventManager.GameOver += SwitchToEndScreenSoundtrack;
+            PlayAudio += Play;
+            EventManager.OnTwoPlayersConnected += PlayMainSoundtrack;
         }
         private void OnDisable()
         {
-            //EventManager.GameOver -= SwitchToEndScreenSoundtrack;
+            PlayAudio -= Play;
+            EventManager.OnTwoPlayersConnected -= PlayMainSoundtrack;
         }
     }
 }

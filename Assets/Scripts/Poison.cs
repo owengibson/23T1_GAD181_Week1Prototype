@@ -16,8 +16,9 @@ namespace TenSecondsToDie
             if (other.CompareTag("Player"))
             {
                 //EventManager.OnPelletEaten?.Invoke("-1 second");
-                
+
                 playerCol = other.GetComponent<PlayerController>().playerNum;
+                Debug.Log(playerCol);
 
                 DespawnPelletServerRpc(playerCol);
             }
@@ -25,6 +26,8 @@ namespace TenSecondsToDie
 
         private void Update()
         {
+            if (!NetworkManager.Singleton.IsHost) return;
+
             if (lifespan > 0)
             {
                 lifespan -= Time.deltaTime;
@@ -39,7 +42,7 @@ namespace TenSecondsToDie
         [ServerRpc(RequireOwnership = false)]
         private void DespawnPelletServerRpc(Player player)
         {
-            EventManager.OnPelletEaten?.Invoke(playerCol, pelletType);
+            EventManager.OnPelletEaten?.Invoke(player, pelletType);
             EventManager.OnPoisonDestroy?.Invoke();
             NetworkObject.Despawn();
         }

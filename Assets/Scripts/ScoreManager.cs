@@ -47,11 +47,13 @@ namespace TenSecondsToDie
                 switch (player)
                 {
                     case Player.One:
+                        Debug.Log("Player one picked up poison");
                         playerOneScore--;
                         playerTwoScore++;
                         break;
 
                     case Player.Two:
+                        Debug.Log("Player two picked up poison");
                         playerTwoScore--;
                         playerOneScore++;
                         break;
@@ -61,12 +63,12 @@ namespace TenSecondsToDie
 
             UpdateScoreUIClientRpc(playerOneScore, playerTwoScore);
 
-            if (playerOneScore == 10)
+            if (playerOneScore >= 10)
             {
                 // PLAYER ONE WINS
                 EventManager.OnGameOver?.Invoke(Player.One);
             }
-            else if (playerOneScore == 0)
+            else if (playerOneScore <= 0)
             {
                 // PLAYER TWO WINS
                 EventManager.OnGameOver?.Invoke(Player.Two);

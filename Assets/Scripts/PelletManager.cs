@@ -84,7 +84,7 @@ namespace TenSecondsToDie
                     }
                 }
 
-                // Death pellet spawning
+                /*// Death pellet spawning
                 skullSpawnTimer += Time.deltaTime;
                 if (skullSpawnTimer >= 7.5f)
                 {
@@ -96,7 +96,7 @@ namespace TenSecondsToDie
                     spawnedSkull.GetComponent<NetworkObject>().Spawn(true);
 
                     audioManager.Play("SpawnGem");
-                }
+                }*/
             }
         }
 

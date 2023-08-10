@@ -9,15 +9,17 @@ namespace TenSecondsToDie
     {
         private float lifespan = 3.5f;
         private Pellet pelletType = Pellet.Poison;
+        private Player playerCol;
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
                 //EventManager.OnPelletEaten?.Invoke("-1 second");
-                EventManager.OnPelletEaten?.Invoke(other.GetComponent<PlayerController>().playerNum, pelletType);
-                EventManager.OnPoisonDestroy?.Invoke();
-                NetworkObject.Despawn();
+                
+                playerCol = other.GetComponent<PlayerController>().playerNum;
+
+                DespawnPelletServerRpc(playerCol);
             }
         }
 
@@ -29,9 +31,17 @@ namespace TenSecondsToDie
             }
             else
             {
-                NetworkObject.Despawn();
                 EventManager.OnPoisonDestroy?.Invoke();
+                NetworkObject.Despawn();
             }
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void DespawnPelletServerRpc(Player player)
+        {
+            EventManager.OnPelletEaten?.Invoke(playerCol, pelletType);
+            EventManager.OnPoisonDestroy?.Invoke();
+            NetworkObject.Despawn();
         }
     }
 }

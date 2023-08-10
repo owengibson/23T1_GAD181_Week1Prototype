@@ -30,6 +30,8 @@ namespace TenSecondsToDie
             textActive = false;
         }
 
+        
+
         private void OnEnable()
         {
             //EventManager.OnPelletEaten += DisplayPickupText;

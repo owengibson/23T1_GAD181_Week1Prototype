@@ -61,11 +61,11 @@ namespace TenSecondsToDie
 
         private void OnEnable()
         {
-            EventManager.GameOver += SwitchToEndScreenSoundtrack;
+            //EventManager.GameOver += SwitchToEndScreenSoundtrack;
         }
         private void OnDisable()
         {
-            EventManager.GameOver -= SwitchToEndScreenSoundtrack;
+            //EventManager.GameOver -= SwitchToEndScreenSoundtrack;
         }
     }
 }

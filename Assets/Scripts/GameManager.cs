@@ -70,13 +70,13 @@ namespace TenSecondsToDie
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
-        private void OnEnable()
+        /*private void OnEnable()
         {
             EventManager.GameOver += EndScreen;
         }
         private void OnDisable()
         {
             EventManager.GameOver -= EndScreen;
-        }
+        }*/
     }
 }

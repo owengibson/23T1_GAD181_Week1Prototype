@@ -8,13 +8,14 @@ namespace TenSecondsToDie
     public class Poison : NetworkBehaviour
     {
         private float lifespan = 3.5f;
+        private Pellet pelletType = Pellet.Poison;
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
                 //EventManager.OnPelletEaten?.Invoke("-1 second");
-                EventManager.PoisonEaten?.Invoke(other.GetComponent<PlayerController>().playerNum);
+                EventManager.OnPelletEaten?.Invoke(other.GetComponent<PlayerController>().playerNum, pelletType);
                 EventManager.OnPoisonDestroy?.Invoke();
                 NetworkObject.Despawn();
             }

@@ -2387,8 +2387,6 @@ MonoBehaviour:
     type: 3}
   skullPrefab: {fileID: 6000642017585264602, guid: 01b45cc316831d543aadc54a3e6c2f83,
     type: 3}
-  player: {fileID: 0}
-  playerRB: {fileID: 0}
   audioManager: {fileID: 823184944}
   gameManager: {fileID: 451469889}
   spawnDistanceFromPlayer: 2.5
@@ -5247,7 +5245,7 @@ MonoBehaviour:
   m_MaxConnectAttempts: 60
   m_DisconnectTimeoutMS: 30000
   ConnectionData:
-    Address: 127.0.0.1
+    Address: 10.40.51.229
     Port: 7777
     ServerListenAddress: 127.0.0.1
   DebugSimulator:
@@ -5273,31 +5271,9 @@ MonoBehaviour:
     NetworkTransport: {fileID: 1043610926}
     PlayerPrefab: {fileID: 6349264067982176375, guid: 7b3b1bb8eb238a5439dfe0c9debba8e0,
       type: 3}
-    NetworkPrefabs:
-    - Override: 0
-      Prefab: {fileID: 6349264067982176375, guid: 7b3b1bb8eb238a5439dfe0c9debba8e0,
-        type: 3}
-      SourcePrefabToOverride: {fileID: 0}
-      SourceHashToOverride: 0
-      OverridingTargetPrefab: {fileID: 0}
-    - Override: 0
-      Prefab: {fileID: 6000642017585264602, guid: 0f1d1068db4a15846853a393c525577f,
-        type: 3}
-      SourcePrefabToOverride: {fileID: 0}
-      SourceHashToOverride: 0
-      OverridingTargetPrefab: {fileID: 0}
-    - Override: 0
-      Prefab: {fileID: 635620566201296611, guid: cbec43a49d0bc494b9c96bbd1b67a347,
-        type: 3}
-      SourcePrefabToOverride: {fileID: 0}
-      SourceHashToOverride: 0
-      OverridingTargetPrefab: {fileID: 0}
-    - Override: 0
-      Prefab: {fileID: 6000642017585264602, guid: 01b45cc316831d543aadc54a3e6c2f83,
-        type: 3}
-      SourcePrefabToOverride: {fileID: 0}
-      SourceHashToOverride: 0
-      OverridingTargetPrefab: {fileID: 0}
+    Prefabs:
+      NetworkPrefabsLists:
+      - {fileID: 11400000, guid: c514f2a64dd62464cb9d67ae6c4e4197, type: 2}
     TickRate: 30
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 0
@@ -5313,6 +5289,7 @@ MonoBehaviour:
     LoadSceneTimeOut: 120
     SpawnTimeout: 1
     EnableNetworkLogs: 1
+    OldPrefabList: []
 --- !u!4 &1043610928
 Transform:
   m_ObjectHideFlags: 0

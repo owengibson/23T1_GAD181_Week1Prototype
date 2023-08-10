@@ -8,6 +8,7 @@ namespace TenSecondsToDie
     public class Skull : NetworkBehaviour
     {
         private float lifespan = 2.5f;
+        private Pellet pelletType = Pellet.Skull;
 
         private void OnTriggerEnter(Collider other)
         {

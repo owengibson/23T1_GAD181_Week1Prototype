@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace TenSecondsToDie
 {
+    public enum Pellet { Heart, Poison, Skull }
     public class PelletManager : NetworkBehaviour
     {
         /*private NetworkVariable<bool> isHeartActive = new(false);
@@ -53,8 +54,10 @@ namespace TenSecondsToDie
 
         private void Update()
         {
-            if (arePlayersFound)
+            if (arePlayersFound && NetworkManager.Singleton.IsHost)
             {
+                //Debug.Log(NetworkManager.Singleton.IsHost);
+
                 if (!isHeartActive)
                 {
                     // Good pellet spawning
@@ -179,17 +182,24 @@ namespace TenSecondsToDie
             isPoisonActive = false;
         }
 
+        private void PlayerTwoDisconnect()
+        {
+            arePlayersFound = false;
+        }
+
         private void OnEnable()
         {
             EventManager.OnHeartDestroy += ResetActiveGoodPellets;
             EventManager.OnPoisonDestroy += ResetActiveBadPellets;
             EventManager.OnTwoPlayersConnected += FindPlayers;
+            EventManager.OnPlayerTwoDisconnect += PlayerTwoDisconnect;
         }
         private void OnDisable()
         {
             EventManager.OnHeartDestroy -= ResetActiveGoodPellets;
             EventManager.OnPoisonDestroy -= ResetActiveBadPellets;
             EventManager.OnTwoPlayersConnected -= FindPlayers;
+            EventManager.OnPlayerTwoDisconnect -= PlayerTwoDisconnect;
         }
     }
 

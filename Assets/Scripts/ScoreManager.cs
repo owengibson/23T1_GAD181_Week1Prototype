@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,37 +13,58 @@ namespace TenSecondsToDie
         /*[SerializeField] private TMP_InputField inputName;
         private string scoreString;*/
 
-        public NetworkVariable<ushort> playerOneScore = new(5);
+        public NetworkVariable<int> playerOneScore = new(5);
 
         [SerializeField] private TextMeshProUGUI playerOneText;
         [SerializeField] private TextMeshProUGUI playerTwoText;
         [SerializeField] private Slider scoreSlider;
 
-        private ushort playerTwoScore = 5;
+        private int playerTwoScore = 5;
 
         [ContextMenu("Add Score")]
-        private void UpdateScore(Player player)
+        private void UpdateScore(Player player, Pellet pelletType)
         {
-            if (!IsHost) return;
+            //if (!NetworkManager.Singleton.IsHost) return;
 
-            switch (player)
+            if (pelletType == Pellet.Heart)
             {
-                case Player.One:
-                    playerOneScore.Value++;
-                    playerTwoScore--;
-                    break;
+                switch (player)
+                {
+                    case Player.One:
+                        playerOneScore.Value++;
+                        playerTwoScore--;
+                        break;
 
-                case Player.Two:
-                    playerTwoScore++;
-                    playerOneScore.Value--;
-                    break;
+                    case Player.Two:
+                        playerTwoScore++;
+                        playerOneScore.Value--;
+                        break;
+                }
             }
-            playerOneText.text = playerOneScore.ToString();
+            else if (pelletType == Pellet.Skull)
+            {
+                switch (player)
+                {
+                    case Player.One:
+                        playerOneScore.Value--;
+                        playerTwoScore++;
+                        break;
+
+                    case Player.Two:
+                        playerTwoScore--;
+                        playerOneScore.Value++;
+                        break;
+                }
+            }
+            else Debug.Log("Invalid pellet type for score update.");
+
+            playerOneText.text = playerOneScore.Value.ToString();
             playerTwoText.text = playerTwoScore.ToString();
-            StartCoroutine(LerpSlider(playerOneScore.Value, 0.2f));
+            StartCoroutine(LerpSlider(playerOneScore.Value, 0.15f));
+            //scoreSlider.value = Convert.ToSingle(playerOneScore.Value);
         }
 
-        private IEnumerator LerpSlider(ushort target, float time)
+        private IEnumerator LerpSlider(int target, float time)
         {
             float counter = 0f;
             float start = scoreSlider.value;
@@ -60,5 +82,14 @@ namespace TenSecondsToDie
             scoreString = GameManager.timeCounter.ToString("#0");
             EventManager.OnLeaderboardSubmit?.Invoke(inputName.text, int.Parse(scoreString));
         }*/
+
+        private void OnEnable()
+        {
+            EventManager.OnPelletEaten += UpdateScore;
+        }
+        private void OnDisable()
+        {
+            EventManager.OnPelletEaten -= UpdateScore;
+        }
     }
 }

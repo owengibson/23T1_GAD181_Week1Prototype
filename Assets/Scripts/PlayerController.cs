@@ -47,6 +47,7 @@ namespace TenSecondsToDie
 
         public override void OnNetworkDespawn()
         {
+            EventManager.OnPlayerTwoDisconnect?.Invoke();
             _gameManager.connectedPlayers.Remove(gameObject);
 
             base.OnNetworkDespawn();

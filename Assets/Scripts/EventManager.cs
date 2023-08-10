@@ -10,14 +10,16 @@ namespace TenSecondsToDie
         
         public static Action<Player> HeartEaten;
         public static Action<Player> PoisonEaten;
+        public static Action<Player, Pellet> OnPelletEaten;
         public static Action<Player> SkullEaten;
 
         public static Action OnHeartDestroy;
         public static Action OnPoisonDestroy;
         public static Action GameOver;
         public static Action OnTwoPlayersConnected;
+        public static Action OnPlayerTwoDisconnect;
         
-        public static Action<string> OnPelletEaten;
+        //public static Action<string> OnPelletEaten;
 
         public static Action<string, int> OnLeaderboardSubmit;
     }

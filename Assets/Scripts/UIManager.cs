@@ -32,11 +32,11 @@ namespace TenSecondsToDie
 
         private void OnEnable()
         {
-            EventManager.OnPelletEaten += DisplayPickupText;
+            //EventManager.OnPelletEaten += DisplayPickupText;
         }
         private void OnDisable()
         {
-            EventManager.OnPelletEaten -= DisplayPickupText;
+            //EventManager.OnPelletEaten -= DisplayPickupText;
         }
 
     }
